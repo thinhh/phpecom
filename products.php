@@ -26,6 +26,37 @@ if(isset($_GET['category'])) {
                     <div class="col-md-12">
                         <h3><a href="index.php">Home</a>/<a href="categories.php">Companies</a>/<?= $category['name']?></h3> <br>
                         <h2><?= $category['name']?></h2> <br>
+                        <h3>Most search product</h3>
+                        <div class="row">
+                            <?php 
+                                $most_search_products = mostSearchProductByCompany($cid);
+                                if(mysqli_num_rows($most_search_products) > 0){
+                                    foreach($most_search_products as $item) { ?>
+                                        
+                                        <div class="col-md-2 mb-2 product_data">
+                                    <a href="product-view.php?product=<?=$item['slug']?>" class="update_hits ">
+                                        <input type="hidden" class="hits" value="<?= $item['hits'] ?>">
+                                        <input type="hidden" class="hits_prod_id" value="<?= $item['id'] ?>">
+                                        <div class="card shadow">
+                                            <div class="card-header text-center bg-dark text-light">
+                                                <?= $item['name'] ?>
+                                            </div>
+                                            <div class="card-body">
+                                                <img src="uploads/<?=$item['image']; ?>" class="card-img" alt="category image">
+                                            </div>
+                                            <div class='fw-bold text-center'>Searches: <?= $item['hits']?>
+                                            </div>
+                                        </div>
+                                    </a>
+                                        </div>
+                                        
+                                    <?php }
+                                        } else {
+                                            echo "No product available";
+                                        }
+                                    ?>
+                        </div>
+                        <h3> All Available Products </h3>
                         <div class="row">
                             <?php
                                         $products = getProdByCategory($cid);
@@ -50,12 +81,12 @@ if(isset($_GET['category'])) {
                                     </div>
                                     
                                 <?php }
-            } else {
-                echo "No product available";
-            }
-        ?>
+                                    } else {
+                                        echo "No product available";
+                                    }
+                                ?>
                         </div>
-               
+                
                     </div>
              </div>
             </div>

@@ -36,6 +36,13 @@ function mostSearchProduct()
     $query_run = mysqli_query($con, $query);
     return $query_run;
 }
+function mostSearchProductByCompany($cid)
+{
+    global $con;
+    $query = "SELECT * FROM `products` WHERE status='1' AND category_id= '$cid' ORDER BY hits DESC LIMIT 5";
+    $query_run = mysqli_query($con, $query);
+    return $query_run;
+}
 function getAllTrending()
 {
     global $con;
@@ -78,8 +85,9 @@ function checkTrackingValid($trackingNo)
     return mysqli_query($con, $query);
 }
 
-function get_reviews_by_prod_id($id){
+function get_reviews_by_prod_id($id)
+{
     global $con;
-    $query= "SELECT * FROM `reviews` WHERE prod_id= '$id'";
+    $query = "SELECT * FROM `reviews` WHERE prod_id= '$id'";
     return mysqli_query($con, $query);
 }
