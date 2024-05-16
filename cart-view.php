@@ -6,7 +6,7 @@ if(isset($_COOKIE["pages"])) {
     }
 
 } else {
-    setcookie("pages","Cart", time() + (86400 * 30));
+    setcookie("pages", "Cart", time() + (86400 * 30));
 }
 include("./functions/userfunctions.php");
 include("includes/header.php");
@@ -19,12 +19,12 @@ include("authenticate.php");?>
         <div class="card card-body shadow" >
             <div class="row">
                 <div class="col-md-12">
-                    <?php $cartItems= getCartItems();
-                    if(mysqli_num_rows($cartItems) == 0){
-                        echo "<h5 class='text-center'>Empty Cart</h5>";}
-                    else{
-                    foreach($cartItems as $item){
-                        ?>
+                    <?php $cartItems = getCartItems();
+if(mysqli_num_rows($cartItems) == 0) {
+    echo "<h5 class='text-center'>Empty Cart</h5>";
+} else {
+    foreach($cartItems as $item) {
+        ?>
                         <hr>
                         <div class="row">
                             <div class="col-md-2">
@@ -39,6 +39,7 @@ include("authenticate.php");?>
                             <div class="col-md-2 product_data">
                                 <input type="hidden" class='prodID' value="<?= $item['prod_id'] ?>">
                                 <div class="input-group mb-3" style="width:130px">
+                                <input type="hidden" id="stock" value=" <?= $item['qty'];?>">
                                     <button class="input-group-text decrement_btn updateQty" id="updateQty">-</button>
                                     <input type="number" class="form-control bg-white text-center input_qty" id="input_qty" value="<?= $item['prod_qty']; ?>" disabled>
                                     <button class="input-group-text increment_btn updateQty" id="updateQty">+</button>
@@ -49,8 +50,8 @@ include("authenticate.php");?>
                             </div>
                         </div>
                         
-                    <?php 
-                    } ?>
+                    <?php
+    } ?>
                         <div class="float-end">
                             <a href="checkout.php" class="btn btn-primary">Proceed to checkout</a>
                         </div>

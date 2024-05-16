@@ -62,7 +62,7 @@ function getCartItems()
 {
     global $con;
     $userid = $_SESSION['auth_user']['user_id'];
-    $query = "SELECT c.id, c.prod_id, c.prod_qty, p.id AS pid, p.name, p.image, p.selling_price
+    $query = "SELECT c.id, c.prod_id, c.prod_qty, p.id AS pid, p.name, p.image, p.selling_price, p.qty
              FROM carts c, products p  
              WHERE c.prod_id= p.id AND c.user_id=$userid
              ORDER BY c.id DESC; ";
